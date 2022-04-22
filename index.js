@@ -33,7 +33,7 @@ const scrapConfig = {
       index1: null,
     },
     end: {
-      target: '2022-CPO-3792-00136',
+      target: '2022-',
       index0: null,
       index1: null,
     },
@@ -87,6 +87,11 @@ const findTables = (scrapConfig, content) => {
       const pivote = scrapConfigCurrent.start.index1 ? 
         scrapConfigCurrent.end.index0: 
         scrapConfigCurrent.start.index0
+
+      // if(scrapConfigKeyIndex === 1 && !pivote) {
+      //   console.log("sentence", sentence)
+      //   console.log("textTarget.split(' ')[0]", textTarget.split(' ')[0])
+      // }
 
       if(pivote) {
         sentence = words
