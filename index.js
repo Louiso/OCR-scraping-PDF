@@ -13,38 +13,30 @@ const ColumnName = {
 
 const scrapConfig = {
   controlTable: {
-    startText: 'II. Tipo de servicio de control posterior:',
-    endText: 'III. Resultados del servicio de control posterior:',
     start: {
       target: 'II. Tipo de servicio de control posterior:',
-      startIndex: null,
-      endIndex: null,
+      index0: null,
+      index1: null,
     },
     end: {
       target: 'III. Resultados del servicio de control posterior:',
-      startIndex: null,
-      endIndex: null,
+      index0: null,
+      index1: null,
     },
-    startIndex: null,
-    endIndex: null,
     columns: [
     ]
   },
   backgroundTable: {
-    startText: 'Personas comprendidas en los hechos específicos irregulares y presuntas responsabilidades identificadas (Apéndice N ° 1):',
-    endText: '2022-CPO-3792-00136',
     start: {
       target: 'Personas comprendidas en los hechos específicos irregulares y presuntas responsabilidades identificadas (Apéndice N ° 1):',
-      startIndex: null,
-      endIndex: null,
+      index0: null,
+      index1: null,
     },
     end: {
       target: '2022-CPO-3792-00136',
-      startIndex: null,
-      endIndex: null,
+      index0: null,
+      index1: null,
     },
-    startIndex: null,
-    endIndex: null,
     columns: [
       {
         columnName: ColumnName.DocNumber,
@@ -81,22 +73,34 @@ const findTables = (scrapConfig, content) => {
 
   const scrapConfigKeys = Object.keys(newScrapConfig)
 
-  let pivote
   const words = content.map((item) => item.str)
 
   for(let i = 0 ; i < words.length; i++){
     const scrapConfigCurrent = newScrapConfig[scrapConfigKeys[scrapConfigKeyIndex]]
 
     if(scrapConfigCurrent) {
-      const textTarget = scrapConfigCurrent.startIndex ? scrapConfigCurrent?.endText : scrapConfigCurrent?.startText
+      const textTarget = scrapConfigCurrent.start.index1 ? scrapConfigCurrent?.end.target : scrapConfigCurrent?.start.target
 
       const str = words[i];
       let sentence = str
 
+      const pivote = scrapConfigCurrent.start.index1 ? 
+        scrapConfigCurrent.end.index0: 
+        scrapConfigCurrent.start.index0
+
       if(pivote) {
-        sentence = words.slice(pivote - 1, i).map(str => str.trim()).filter(Boolean).join(' ')
+        sentence = words
+          .slice(pivote - 1, i)
+          .map(str => str.trim())
+          .filter(Boolean)
+          .join(' ')
+
       } else if(sentence === textTarget.split(' ')[0]) {
-        pivote = i
+        if(textTarget === scrapConfigCurrent?.end.target) {
+          scrapConfigCurrent.end.index0 = i
+        } else {
+          scrapConfigCurrent.start.index0 = i
+        }
       }
 
       const sentenceSanitize = sentence
@@ -111,12 +115,11 @@ const findTables = (scrapConfig, content) => {
 
           // cuando finaliza la búsqueda del textoTarget
           if(textTarget === match[0]) {
-            scrapConfigCurrent.startIndex = pivote
-            pivote = null
-
-            if(textTarget === scrapConfigCurrent.endText) {
-              scrapConfigCurrent.endIndex = i
+            if(textTarget === scrapConfigCurrent.end.target) {
+              scrapConfigCurrent.end.index1 = i
               scrapConfigKeyIndex++
+            } else {
+              scrapConfigCurrent.start.index1 = i
             }
           }
         }
@@ -126,7 +129,7 @@ const findTables = (scrapConfig, content) => {
     }
 
     if(i === words.length - 1 && scrapConfigCurrent) {
-      scrapConfigCurrent.endIndex = i
+      scrapConfigCurrent.end.index1 = i
     }
   } 
   return newScrapConfig
@@ -141,9 +144,9 @@ const findColumnsOfTables = (scrapConfig, content) => {
   scrapConfigKeys.forEach((key) => {
     const scrapConfigCurrent = newScrapConfig[key]
 
-    const startElement = content[scrapConfigCurrent.startIndex]
+    const startElement = content[scrapConfigCurrent.index0]
 
-    const elements = content.slice(scrapConfigCurrent.startIndex, scrapConfigCurrent.endIndex + 1)
+    const elements = content.slice(scrapConfigCurrent.index0, scrapConfigCurrent.index1 + 1)
     const startSecondLine = elements.find((element) => element.y !== startElement.y)
 
     const secondLine = elements
@@ -179,8 +182,74 @@ pdfExtract.extract('ViewPDF.pdf', options, (err, data) => {
   const content = data.pages.flatMap(page => page.content)
 
   const newScrapConfig = findTables(scrapConfig, content)
+  console.log("Luis Sullca ~ file: index.js ~ line 182 ~ pdfExtract.extract ~ newScrapConfig", newScrapConfig)
 
-  const newScrapConfig2 = findColumnsOfTables(newScrapConfig, content)
+  // const newScrapConfig2 = findColumnsOfTables(newScrapConfig, content)
 
-  console.log("newScrapConfig2", newScrapConfig2)
+  // console.log("newScrapConfig2", newScrapConfig2)
 });
+
+
+/* 
+  newScrapConfig2 {
+    controlTable: {
+      start: {
+        target: 'II. Tipo de servicio de control posterior:',
+        index0: null,
+        index1: null
+      },
+      end: {
+        target: 'III. Resultados del servicio de control posterior:',
+        index0: null,
+        index1: null
+      },
+      index0: 352,
+      index1: 365,
+      columns: []
+    },
+    backgroundTable: {
+      start: {
+        target: 'Personas comprendidas en los hechos específicos irregulares y presuntas responsabilidades identificadas (Apéndice N ° 1):',
+        index0: null,
+        index1: null
+      },
+      end: { target: '2022-CPO-3792-00136', index0: null, index1: null },
+      index0: 829,
+      index1: 1037,
+      columns: [ [Object], [Object], [Object], [Object], [Object], [Object] ]
+    }
+  }
+
+  {
+    controlTable: {
+      startText: 'II. Tipo de servicio de control posterior:',
+      endText: 'III. Resultados del servicio de control posterior:',
+      start: {
+        target: 'II. Tipo de servicio de control posterior:',
+        index0: 270,
+        index1: null
+      },
+      end: {
+        target: 'III. Resultados del servicio de control posterior:',
+        index0: null,
+        index1: 1037
+      },
+      index0: null,
+      index1: null,
+      columns: []
+    },
+    backgroundTable: {
+      startText: 'Personas comprendidas en los hechos específicos irregulares y presuntas responsabilidades identificadas (Apéndice N ° 1):',
+      endText: '2022-CPO-3792-00136',
+      start: {
+        target: 'Personas comprendidas en los hechos específicos irregulares y presuntas responsabilidades identificadas (Apéndice N ° 1):',
+        index0: null,
+        index1: null
+      },
+      end: { target: '2022-CPO-3792-00136', index0: null, index1: null },
+      index0: null,
+      index1: null,
+      columns: [ [Object], [Object], [Object], [Object], [Object], [Object] ]
+    }
+  }
+*/
