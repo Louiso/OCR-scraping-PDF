@@ -48,7 +48,7 @@ class TableScrapper extends IScrapper {
         }
       }
 
-      if(i === line.length - 1) {
+      if(i === line.length - 1 && currentColumn) {
         currentColumn.xRange.push(element.x)
       }
     }
