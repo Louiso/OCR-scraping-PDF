@@ -1,15 +1,3 @@
-const path = require('path')
-const extractData = require("./src/controllers/extractor")
-
-const ColumnName = {
-  DocNumber: 'DNI',
-  FullName: 'Nombres y Apellidos',
-  Civil: 'Civil',
-  Penal: 'Penal',
-  AdmEnt: 'Adm. ENT',
-  AdmPas: 'Adm. PAS',
-}
-
 const main = async () => {
   const data = await extractData(path.resolve(__dirname, 'ViewPDF.pdf'), {
     backgroundTable: {
@@ -31,7 +19,3 @@ const main = async () => {
 }
 
 main()
-
-
-
- 
