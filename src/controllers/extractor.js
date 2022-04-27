@@ -1,4 +1,6 @@
 const ScrapConfigFactory = require('../services/Scrapper');
+const Downloader = require('../services/Downloader');
+const fs = require('fs')
 
 const PDFExtract = require('pdf.js-extract').PDFExtract;
 
@@ -104,11 +106,13 @@ const buildScrapConfig = (scrapConfigInit) => {
   }, {})
 }
 
-const extractData = (pathFile, scrapConfigInit) => {
-  return new Promise((resolve) => {
+const extractData = (urlFile, fileName, scrapConfigInit) => {
+  return new Promise(async (resolve) => {
     const scrapConfig = buildScrapConfig(scrapConfigInit)
 
-    pdfExtract.extract(pathFile, options, (err, data) => {
+    const outputPath = await Downloader.downloadFileByUrl(urlFile, fileName)
+
+    pdfExtract.extract(outputPath, options, (err, data) => {
       if (err) return console.log(err);
     
       const content = data.pages.flatMap(page => page.content)
@@ -125,6 +129,12 @@ const extractData = (pathFile, scrapConfigInit) => {
       })
 
       resolve(dataset)
+      try {
+        fs.unlinkSync(outputPath)
+      //file removed
+      } catch(err) {
+        console.error(err)
+      }        
     });
   })
 }

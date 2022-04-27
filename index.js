@@ -1,5 +1,5 @@
-const path = require('path')
 const extractData = require("./src/controllers/extractor")
+const qs = require('query-string')
 
 const ColumnName = {
   DocNumber: 'DNI',
@@ -11,7 +11,13 @@ const ColumnName = {
 }
 
 const main = async () => {
-  const data = await extractData(path.resolve(__dirname, 'ViewPDF.pdf'), {
+  const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO061000002&TIPOARCHIVO=RE'
+
+  const urlParse = qs.parseUrl(url)
+  
+  const fileName = `${urlParse.query.CRES_CODIGO}.pdf`
+
+  const data = await extractData(url,fileName , {
     backgroundTable: {
       type: 'table',
       startLine: 'Personas comprendidas en los hechos específicos irregulares y presuntas responsabilidades identificadas (Apéndice N ° 1):',
@@ -29,6 +35,7 @@ const main = async () => {
 
   console.log("data", JSON.stringify(data, null, 2))
 }
+
 
 main()
 

@@ -3,6 +3,7 @@
     "aedes": "^0.46.3",
     "mqtt": "^4.3.7",
     "net": "^1.0.2",
-    "pdf.js-extract": "^0.2.0"
+    "pdf.js-extract": "^0.2.0",
+    "query-string": "^7.1.1"
   }
 }
