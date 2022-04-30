@@ -1,9 +1,11 @@
 {
   "dependencies": {
     "aedes": "^0.46.3",
+    "axios": "^0.27.2",
     "mqtt": "^4.3.7",
     "net": "^1.0.2",
     "pdf.js-extract": "^0.2.0",
+    "pg": "^8.7.3",
     "query-string": "^7.1.1"
   }
 }
