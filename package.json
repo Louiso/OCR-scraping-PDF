@@ -2,10 +2,22 @@
   "dependencies": {
     "aedes": "^0.46.3",
     "axios": "^0.27.2",
+    "fs-extra": "^10.1.0",
+    "immer": "^9.0.12",
+    "lodash": "^4.17.21",
+    "lodash.merge": "^4.6.2",
     "mqtt": "^4.3.7",
+    "mupdf-js": "^1.0.4",
     "net": "^1.0.2",
+    "node-tesseract-ocr": "^2.2.1",
+    "pdf-image": "^2.0.0",
     "pdf.js-extract": "^0.2.0",
+    "pdf2pic": "^2.1.4",
+    "pdfkit": "^0.13.0",
     "pg": "^8.7.3",
-    "query-string": "^7.1.1"
+    "query-string": "^7.1.1",
+    "rimraf": "^3.0.2",
+    "tesseract.js": "^2.1.5",
+    "tesseractocr": "^2.0.3"
   }
 }
