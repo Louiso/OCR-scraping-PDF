@@ -1,0 +1,34 @@
+pip install fitz
+11091  magick convert src/services/ScrapperOCR/pdfMagic.js -quality 100 output-%3d.jpg
+11092  sudo apt install magick
+11093  sudo apt install php-imagick
+11094  yarn add fs-extra
+11095  yarn add rimraf
+11096  node src/services/ScrapperOCR/pdf2Pick.js
+11097  node src/services/ScrapperOCR/index.js
+11098  yarn add node-tesseract-ocr
+11099  yarn add tesseract-ocr
+11100  yarn add node-tesseract-ocr
+11101  apt-get install tesseract-ocr\n
+11102  sudo apt  install tesseract-ocr
+11103  node src/services/ScrapperOCR/index.js
+11104  yarn add tesseractocr
+11105  node src/services/ScrapperOCR/index.js
+11106  node src/services/ScrapperOCR/tsrocr1.js
+11107  node src/services/ScrapperOCR/pdf2Pick.js
+11108  node src/services/ScrapperOCR/tsrocr1.js
+11109  history
+11110  gst
+11111  clear
+11112  git add .
+11113  git comit -m "[update] a nada"
+11114  git commit -m "[update] a nada"
+11115  git push origin master
+11116  pip install PyMuPDF
+11117  python src/services/ScrapperOCR/index.py
+11118  pip install pytesseract
+11119  python src/services/ScrapperOCR/index.py
+11120  opencv-contrib-python
+11121  pip install opencv-contrib-python
+11122  python src/services/ScrapperOCR/index.py
+11123  gst

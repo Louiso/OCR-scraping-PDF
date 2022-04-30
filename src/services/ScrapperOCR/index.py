@@ -1,4 +1,8 @@
-input_file = 'pdf_example_two.pdf'
+import fitz
+import pytesseract
+from PIL import Image
+
+input_file = './ViewPDF.pdf'
 pdf_file = input_file
 fullText = ""
 
@@ -11,7 +15,7 @@ noOfPages = doc.pageCount
 for pageNo in range(noOfPages):
     page = doc.loadPage(pageNo) # number of pages
     pix = page.getPixmap(matrix = mat) # if you need to scale a scanned image
-    output = './image_from_pdf_two/' + str(pageNo) + '.jpg'
+    output = './doc' + str(pageNo) + '.png'
     pix.writePNG(output) # skip this if you don't need to render a page
 
     text = str(((pytesseract.image_to_string(Image.open(output), config="--psm 6 -c preserve_interword_spaces=1"))))
