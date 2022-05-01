@@ -1,4 +1,5 @@
 const https = require('https'); // or 'https' for https:// URLs
+const http = require('http');
 const fs = require('fs');
 const path = require('path')
 
@@ -8,7 +9,9 @@ const downloadFileByUrl = (urlFile, fileName) => {
     const outputPath = path.resolve(__dirname, './downloads', fileName)
     const file = fs.createWriteStream(outputPath);
 
-    https.get(urlFile, function(response) {
+    const protocol = urlFile.match(/^https/) ? https : http;
+
+    protocol.get(urlFile, function(response) {
       response.pipe(file);
 
       // after download completed close filestream
