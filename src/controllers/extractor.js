@@ -95,6 +95,19 @@ const findSections = (scrapConfig, content) => {
               scrapConfigCurrent.start.index1 = i
             }
           }
+        } else {
+          const textoTargetArray = textTarget.split(' ')
+          const sentenceSanitizeArray = sentenceSanitize.split(' ')
+
+          if(
+            sentenceSanitizeArray.length >= 2 &&
+            textoTargetArray[1] !== sentenceSanitizeArray[1]
+          ) {
+            const fieldName = scrapConfigCurrent.start.index1 ? 'end': 'start'
+
+            scrapConfigCurrent[fieldName].index0 = null
+            scrapConfigCurrent[fieldName].target = ''
+          }
         }
       } catch (error) {
         console.log("error", error.message)
@@ -103,6 +116,7 @@ const findSections = (scrapConfig, content) => {
 
     if(i === words.length - 1 && scrapConfigCurrent) {
       scrapConfigCurrent.end.index1 = i
+      if(!scrapConfigCurrent.end.index0) scrapConfigCurrent.end.index0 = i - 1
     }
   } 
   return newScrapConfig
@@ -118,9 +132,13 @@ const extractData = (urlFile, fileName, scrapConfigInit) => {
       if (err) return console.log(err);
     
       const content = data.pages.flatMap(page => page.content)
+
+      // console.log("content", content.map((element) => element.str).join(''))
     
       const newScrapConfig = findSections(scrapConfig, content)
     
+      // console.log("newScrapConfig", JSON.stringify(newScrapConfig, null, 2))
+
       const dataset = Object.keys(scrapConfig).map((key) => {
         const config = newScrapConfig[key]
     

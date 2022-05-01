@@ -16,6 +16,7 @@ const main = async () => {
   // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO028000003&TIPOARCHIVO=RE'
   // const url = 'https://s3.amazonaws.com/spic-informes-publicados/resumen/2022/04/2021CPO070200010.pdf'
   const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPOL48000005&TIPOARCHIVO=RE'
+  // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO131700001&TIPOARCHIVO=RE'
 
   const urlParse = qs.parseUrl(url)
 
@@ -28,7 +29,7 @@ const main = async () => {
       type: 'table',
       startLines: [
         'Personas comprendidas en los hechos específicos irregulares y presuntas responsabilidades identificadas (Apéndice N ° 1):',
-        'Funcionarios comprendidos en los hechos y presuntas responsabilidades identificadas (Apéndice 1):'
+        'Funcionarios comprendidos en los hechos y presuntas responsabilidades identificadas (Apéndice 1):',
       ],
       endLines: [
         endLine
