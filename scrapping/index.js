@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { pool } = require("./db")
-
+const { extractPersonasResponsable } = require('./ResumenInformExtractor')
 
 const sample = {
     id: null,
@@ -56,42 +56,108 @@ const sample = {
   }
 
 
-const formatedData = (data) => {
+const formatColumnsInforms = (data) => {
     return {
-        codInform: data.CodigoInforme,
-        tipoServicio: data.ServicioControl,
-        tituloInform: data.Descripcion,
-        resumeninform: data.ResumenInforme
+        num_inform: data.CodigoInforme,
+        tipo_servicio: data.ServicioControl,
+        titulo: data.Descripcion,
+        url_resumen: data.ResumenEjecutivo,
+        url_informe: data.ResumenInforme,
+        departamento:  data.Departamento,
+        provincia: data.Provincia,
+        distrito: data.Distrito,
+        fecha_emision: data.FechaEmision,
+        fecha_publicacion: data.FechaPublicacion,
+        fecha_fin_ejecucion: data.FechaFinEjecucion
     }
 }
 
-const insertData =  async (data) => {
-    const { codInform, tipoServicio, tituloInform, ResumenInforme } = data
+//const insertData
 
+const insertData = async(tablename, row) => {
+    const keys = Object.keys(row)
+    const values = Object.values(row)
     await  pool.query(
-        "INSERT INTO informes_control (num_imfor, tipo_servicio, titulo, url_resumen) VALUES ($1, $2, $3, $4 ,$5)",
-        [codInform, tipoServicio, tituloInform, ResumenInforme]
+        "INSERT INTO " + tablename + "(" + keys.join(',') +") VALUES"  + "(" +  keys.map(e,i => "$" + i + 1).join(',') + ")"
+        [values]
       );
 }
 
+/* const insertData =  async (data) => {
+    const { 
+        codInform, 
+        tipoServicio, 
+        tituloInform, 
+        urlResumeninform, 
+        urlInforme, 
+        departamento, 
+        provincia, 
+        distrito,
+        fechaEmision,
+        fechaPublicacion,
+        fechaFinEjecucion } = data
 
-const main = async() => {
+    await  pool.query(
+        "INSERT INTO informes_control (num_imfor, tipo_servicio, titulo, url_resumen, url_informe, departamento, provincia, distrito, fecha_emision, fecha_publicacion, fecha_fin_ejecucion ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
+        [codInform, tipoServicio, tituloInform, urlResumeninform, urlInforme, departamento, provincia, distrito, fechaEmision, fechaPublicacion, fechaFinEjecucion]
+      );
+} */
+
+const insetDataInforms = async(scrappedData) => {
     try {
-        const resp = await axios.get(
-            'https://appbp.contraloria.gob.pe/BuscadorCGR/Informes/BusquedaInformesCGR.ashx?ActionPage=TransportType&Action=loadInformesElastic&PageSize=200&PageNumber=1&pGeneral=+&pAnio=&pFechaInicio=01%2F01%2F1800&pFechaHasta=01%2F01%2F2500&pEntidad=&pSector=&pModalidadServicio=+NOT+%22REPORTE+DE+AVANCE%22&pReconstruccion=&pReconstruccionDepa=&pServicio=%22SERVICIO+CONTROL+POSTERIOR%22&pDepartamento=&pResponsabilidad=&pCovid=&pCovidDepa=&pNivelGobierno=&pProvincia=&pDistrito=&pAnioFinEjec=&pEsConResponsabilidad=&pEvento=&pOperativo=')
-        const data = resp.data.map((e) => formatedData(e))
+        const data = scrappedData.map((e) => formatColumnsInforms(e))
         const codesInform = data.map( e => e.codInform)
 
         // find by codes
         params = codesInform.map((e,i) => '$' + (i+1))
-        console.log(params)
-        const { rows } = await pool.query('SELECT num_imfor FROM informes_control WHERE num_imfor in (' + params.join(',') + ')', codesInform);
+        //console.log(params)
+        const { rows } = await pool.query('SELECT num_inform FROM informes_control WHERE num_inform in (' + params.join(',') + ')', codesInform);
+        
         if (rows.length > 0) {
-            console.log(rows)
-        }else{
-           // data.map(e => insertData(e))
+            const existsCodes = rows.map(e => e.num_inform)
+            console.log('-----Scrapeados:' + data.length + '--------')
+            const newRows = data.filter(e => !existsCodes.find(code => code == e.codInform))
+            console.log('-----Nuevos:' + newRows.length + '----------')
+            await Promise.all(newRows.slice(0,1).map(e => insertData(e)))
+            console.log('----Insertados---' + newRows.length)
+        }else {
+            await Promise.all(data.slice(0,1).map(e => insertData(e)))
+            console.log('----Insertados---' + data.length)
         }
+    } catch (error) {
+        console.log(error)
+    }
+}
+const getDataContraloria = async(pageSize, page) => {
+    try {
+        const resp = await axios.get(
+            'https://appbp.contraloria.gob.pe/BuscadorCGR/Informes/BusquedaInformesCGR.ashx?ActionPage=TransportType&Action=loadInformesElastic&'
+            +'PageSize=' + pageSize 
+            +'&PageNumber='+ page
+            +'&pGeneral=+&pAnio=&pFechaInicio=01%2F01%2F1800&pFechaHasta=01%2F01%2F2500&pEntidad=&pSector=&pModalidadServicio=+NOT+%22REPORTE+DE+AVANCE%22&pReconstruccion=&pReconstruccionDepa=&pServicio=%22SERVICIO+CONTROL+POSTERIOR%22&pDepartamento=&pResponsabilidad=%22ADMINISTRATIVO%22+OR+%22PENAL%22+OR+%22CIVIL%22&pCovid=&pCovidDepa=&pNivelGobierno=&pProvincia=&pDistrito=&pAnioFinEjec=&pEsConResponsabilidad=&pEvento=&pOperativo='
+            )
+        return resp.data
+    } catch (error) {
+        console.log(error)
+    }
+}
 
+const main = async() => {
+    try {
+
+       await extractPersonasResponsable('http://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPOL48000005&TIPOARCHIVO=RE')
+        /* const pageSize = 100
+        const data =  await getDataContraloria(pageSize, 1)
+        if (data && data.length > 0) {
+            const [{TotalPages}] = data
+            console.log('Total de Pages:' + TotalPages)
+            await insetDataInforms(data)
+            //for( let i=2; i< TotalPages; i++){
+             ///   
+            //}
+        } else {
+            console.log('No hay data')
+        } */
     } catch (error) {
         console.log(error)
     }
