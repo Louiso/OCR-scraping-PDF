@@ -18,6 +18,7 @@
     "query-string": "^7.1.1",
     "rimraf": "^3.0.2",
     "tesseract.js": "^2.1.5",
-    "tesseractocr": "^2.0.3"
+    "tesseractocr": "^2.0.3",
+    "textract": "^2.5.0"
   }
 }

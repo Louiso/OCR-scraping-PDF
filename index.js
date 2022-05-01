@@ -13,8 +13,8 @@ const ColumnName = {
 }
 
 const main = async () => {
-  const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO028000003&TIPOARCHIVO=RE'
-  // const url = 'https://s3.amazonaws.com/spic-informes-publicados/resumen/2022/04/2021CPO070200010.pdf'
+  // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO028000003&TIPOARCHIVO=RE'
+  const url = 'https://s3.amazonaws.com/spic-informes-publicados/resumen/2022/04/2021CPO070200010.pdf'
 
   const urlParse = qs.parseUrl(url)
 

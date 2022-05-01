@@ -1,11 +1,11 @@
-const recognize = require('tesseractocr')
-const path = require('path')
+const { exec } = require('child_process');
 
-const destPath = path.resolve(__dirname, './images/ViewPDF.png')
 
-const main = async () => {
-  const text = await recognize(destPath)
-  console.log('Yay! Text recognized:', text)
-}
-
-main()
+exec('python src/services/ScrapperOCR/ocr.py -i ./ViewPDF.pdf -o ./doc', (error, stdout, stderr) => {
+  if(error) {
+    console.log("error", error)
+  } else {
+    const lines = stdout.split('\n');
+    console.log("lines", lines)
+  }  
+});
