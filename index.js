@@ -22,7 +22,7 @@ const main = async () => {
 
   const endLine = `${fileName.toLowerCase().split('cp')[0]}-`
 
-  const data = await extractData(url,fileName , {
+  const data = await extractData(url, fileName , {
     backgroundTable: {
       type: 'table',
       startLines: [
@@ -51,5 +51,9 @@ const main = async () => {
 main()
 
 
+// pip install pdfminer.six
+// esteban.wilfredo.g@gmail.com
+// "LUIS" site:elcomercio.pe
+// "PEDRO CASTILLO" corrupción site:elcomercio.pe
 
  

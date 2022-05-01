@@ -1,0 +1,55 @@
+yarn add tesseract
+11055  python -v
+11056  clear
+11057  python --v
+11058  python --version
+11059  yarn add tesseract
+11060  nvm use 14
+11061  yarn add tesseract
+11062  nvm use 12
+11063  yarn add tesseract
+11064  nvm install 18
+11065  yarn add tesseract
+11066  yarn add tesseract.js
+11067  node src/services/ScrapperOCR/index.js
+11068  yarn add pdf2pic
+11069  node src/services/ScrapperOCR/index.js
+11070  wget ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/1.3/GraphicsMagick-1.3.19.tar.gz
+11071  sudo apt install tesseract-ocr -y
+11072  sudo apt install tesseract-ocr-heb
+11073  sudo apt install tesseract-ocr-all -y
+11074  sudo apt install imagemagick
+11075  node src/services/ScrapperOCR/index.js
+11076  sudo apt update
+11077  sudo apt install graphicsmagick\n
+11078  node src/services/ScrapperOCR/index.js
+11079  node src/services/ScrapperOCR/convertPdfToImage.js
+11080  npm i mupdf-js
+11081  yarn add mupdf-js
+11082  node src/services/ScrapperOCR/convertPdfToImage2.js
+11083  yarn add pdfkit
+11084  node src/services/ScrapperOCR/convertPdfToImage2.js
+11085  node src/services/ScrapperOCR/convertPdfToImage.js
+11086  yarn add pdf-image
+11087  node src/services/ScrapperOCR/convertPdfToImage.js
+11088  clear
+11089  node src/services/ScrapperOCR/convertPdfToImage.js
+11090  pip install fitz
+11091  magick convert src/services/ScrapperOCR/pdfMagic.js -quality 100 output-%3d.jpg
+11092  sudo apt install magick
+11093  sudo apt install php-imagick
+11094  yarn add fs-extra
+11095  yarn add rimraf
+11096  node src/services/ScrapperOCR/pdf2Pick.js
+11097  node src/services/ScrapperOCR/index.js
+11098  yarn add node-tesseract-ocr
+11099  yarn add tesseract-ocr
+11100  yarn add node-tesseract-ocr
+11101  apt-get install tesseract-ocr\n
+11102  sudo apt  install tesseract-ocr
+11103  node src/services/ScrapperOCR/index.js
+11104  yarn add tesseractocr
+11105  node src/services/ScrapperOCR/index.js
+11106  node src/services/ScrapperOCR/tsrocr1.js
+11107  node src/services/ScrapperOCR/pdf2Pick.js
+11108  node src/services/ScrapperOCR/tsrocr1.js

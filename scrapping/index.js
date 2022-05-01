@@ -53,7 +53,7 @@ const sample = {
     EstadoRecomendacion: null,
     Recomendaciones: null,
     TotalRecomendaciones: '0'
-  }
+}
 
 
 const formatColumnsInforms = (data) => {
