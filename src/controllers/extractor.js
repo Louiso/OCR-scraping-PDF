@@ -123,7 +123,7 @@ const extractData = (urlFile, fileName, scrapConfigInit) => {
     
       const dataset = Object.keys(scrapConfig).map((key) => {
         const config = newScrapConfig[key]
-    
+        config['meta'] = { urlFile }
         const scrapper = ScrapConfigFactory.getInstance(config, content)
         return {
           [key]: scrapper.run()
@@ -135,7 +135,7 @@ const extractData = (urlFile, fileName, scrapConfigInit) => {
         fs.unlinkSync(outputPath)
       //file removed
       } catch(err) {
-        console.error(err)
+        console.log(err.message)
       }        
     });
   })

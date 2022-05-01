@@ -2,6 +2,10 @@ const extractData = require("../src/controllers/extractor")
 const qs = require('query-string')
 const path = require('path')
 
+const { pool } = require("./db")
+
+
+
 const ColumnName = {
   DocNumber: 'DNI',
   FullName: 'Nombres y Apellidos',
@@ -12,15 +16,12 @@ const ColumnName = {
   AdmPas: 'Adm. PAS',
 }
 
-const extractPersonasResponsable = async (url) => {
+const extractPersonasResponsable = async (urlbase) => {
   try {
-    console.log("[AnthonyM] ~ file: ResumenInformExtractor.js ~ line 16 ~ extractPersonasResponsable ~ url", url)
+    const url = urlbase.replace('http:','https:')
     const urlParse = qs.parseUrl(url)
-    console.log(urlParse)
     const fileName = urlParse.query.CRES_CODIGO ? `${urlParse.query.CRES_CODIGO}.pdf` : path.basename(url)
-    console.log(fileName)
     const endLine = `${fileName.toLowerCase().split('cp')[0]}-`
-    console.log(fileName)
     const data = await extractData(url,fileName , {
       backgroundTable: {
         type: 'table',
@@ -42,9 +43,11 @@ const extractPersonasResponsable = async (url) => {
         ]
       }
     })
-    console.log("data", JSON.stringify(data, null, 2))
+    return data[0]['backgroundTable']
   } catch (error) {
     console.log(error)
+    insertData('errores_extraccion', {url_inform: url, mensaje : error.message})
+    return []
   }
  
 }
