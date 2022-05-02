@@ -12,13 +12,11 @@ const insertData = async(tablename, row) => {
   }
 
 class DBLogger {
-    constructor() {
-      this.tableName = 'errores_extraccion'
-    }
+  tableName = 'errores_extraccion'
   
-    log (url_inform, message) {
-      insertData(this.tableName, {url_inform, message} )
-    }
+  log (url_inform, mensaje) {
+    insertData(this.tableName, {url_inform, mensaje} )
+   }
   }
   
-exports.DBLogger = DBLogger
+module.exports = DBLogger
