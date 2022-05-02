@@ -197,7 +197,7 @@ const main = async() => {
     try {
 
        //await extractPersonasResponsable('https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPOL48000005&TIPOARCHIVO=RE')
-        const pageSize = 10
+        const pageSize = 100
         const data =  await getDataContraloria(pageSize, 1)
         if (data && data.length > 0) {
             const [{TotalPages}] = data

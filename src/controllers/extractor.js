@@ -123,14 +123,12 @@ const findSections = (scrapConfig, content) => {
 }
 
 const extractData = (urlFile, fileName, scrapConfigInit) => {
-  console.log("[AnthonyM] ~ file: extractor.js ~ line 126 ~ extractData ~ urlFile", urlFile)
   return new Promise(async (resolve) => {
     const scrapConfig = buildScrapConfig(scrapConfigInit)
 
     const outputPath = await Downloader.downloadFileByUrl(urlFile, fileName)
 
     pdfExtract.extract(outputPath, options, (err, data) => {
-      console.log("[AnthonyM] ~ file: extractor.js ~ line 132 ~ pdfExtract.extract ~ outputPath", outputPath)
       if (err) return console.log(err);
     
       const content = data.pages.flatMap(page => page.content)
