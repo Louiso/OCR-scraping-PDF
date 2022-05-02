@@ -17,9 +17,8 @@ const ColumnName = {
 
 
 const extractPersonasResponsable = async (urlbase) => {
+  const url = urlbase.replace('http:','https:')
   try {
-    const url = urlbase.replace('http:','https:')
-
     const urlParse = qs.parseUrl(url)
 
     const fileName = urlParse.query.CRES_CODIGO ? `${urlParse.query.CRES_CODIGO}.pdf` : path.basename(url)
