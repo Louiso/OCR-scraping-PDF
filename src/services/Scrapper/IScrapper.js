@@ -1,7 +1,5 @@
-const DbLogger = require('../Logger/DbLogger')
 class IScrapper {
-  logger = DbLogger()
-  constructor(scrapConfig, content, meta = {}) {
+  constructor(scrapConfig, content) {
     this.scrapConfig = scrapConfig
     this.content = content
   }
