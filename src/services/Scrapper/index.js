@@ -4,10 +4,10 @@ const TableScrapper = require('./TableScrapper')
 const TextScrapper = require('./TextScrapper')
 
 class ScrapConfigFactory {
-  static getInstance(config, content) {
+  static getInstance(config, content, meta = {}) {
     switch(config.type) {
       case 'table':
-        return new TableScrapper(config, content);
+        return new TableScrapper(config, content, meta);
       case 'text':
         return new TextScrapper(config, content);
       default: {

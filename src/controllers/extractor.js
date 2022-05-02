@@ -144,7 +144,7 @@ const extractData = (urlFile, fileName, scrapConfigInit) => {
       const dataset = Object.keys(scrapConfig).map((key) => {
         const config = newScrapConfig[key]
     
-        const scrapper = ScrapConfigFactory.getInstance(config, content)
+        const scrapper = ScrapConfigFactory.getInstance(config, content, {url_inform: urlFile})
         return {
           [key]: scrapper.run()
         }

@@ -1,8 +1,10 @@
 const { IScrapper } = require('./IScrapper')
 
 class TableScrapper extends IScrapper {
+  
   // busqueda de columnas de las tablas
   findColumnsOfTables(){
+    try {
     const { content } = this
     const newScrapConfig = JSON.parse(JSON.stringify(this.scrapConfig))
 
@@ -54,6 +56,12 @@ class TableScrapper extends IScrapper {
     }
 
     this.scrapConfig = newScrapConfig
+    } catch (error) {
+      const urlinform = this.meta.url_inform
+      this.logger.log(urlinform, error.message)
+      console.log("[AnthonyM] ~ file: TableScrapper.js ~ line 62 ~ TableScrapper ~ findColumnsOfTables ~ error", error)
+
+    }
   }
 
 // busqueda de celdas de las tablas
