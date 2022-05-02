@@ -1,6 +1,7 @@
 const ScrapConfigFactory = require('../services/Scrapper');
 const Downloader = require('../services/Downloader');
 const fs = require('fs')
+const { produce } = require('immer')
 
 const PDFExtract = require('pdf.js-extract').PDFExtract;
 
@@ -35,7 +36,7 @@ const buildScrapConfig = (scrapConfigInit) => {
 }
 
 const findSections = (scrapConfig, content) => {
-  const newScrapConfig = JSON.parse(JSON.stringify(scrapConfig))
+  const newScrapConfig = produce(scrapConfig)
 
   let scrapConfigKeyIndex = 0
 
@@ -122,6 +123,95 @@ const findSections = (scrapConfig, content) => {
   return newScrapConfig
 }
 
+const initPositionConfig = (position, config, content) => {
+  const content_replace = content.map((element) => {
+    return ['', ' '].includes(element.str) ? {...element, str: '😀'} : element
+  })
+
+  const contentText = content_replace.map((element) => element.str).join('')
+
+  config.end.targets = [
+    new RegExp(Array.from(contentText.split(/😀/)).pop())
+  ]
+
+  const words = content.map((item) => item.str)
+
+  const newConfig = produce(config, (draft) => {
+    for(let target of draft[position].targets) {
+      const match = contentText.match(target)
+      
+      if(!match) continue
+      
+      const [ matchText ] = match
+      const lastIndex = match.index + matchText.length
+      const startIndexSentence = contentText.split('').slice(0, match.index).join('').split(/😀/).length - 1
+      const endIndexSentence = contentText.split('').slice(0, lastIndex).join('').split(/😀/).length - 1
+      
+      const startIndex = startIndexSentence * 2 - target.toString().split(/😀/).length * 2
+      const endIndex = endIndexSentence * 2 + target.toString().split(/😀/).length * 2
+
+      let i = startIndex
+      let matchTarget
+      while(!matchTarget && i <= endIndex) {
+        const pivote = draft[position].index0
+        
+        const str = words[i];
+        let sentence = str
+
+        const firstWord = target.toString().replace(/\//g, '').split(/😀/)[0]
+        
+        const textTargetFound = firstWord === sentence
+
+        if(pivote) {
+          sentence = words
+            .slice(pivote - 1, i)
+            .map(str => str.trim())
+            .filter(Boolean)
+            .join('😀')
+  
+        } else if(textTargetFound) {
+          draft[position].index0 = i
+        }
+
+        const sentenceSanitize = sentence
+
+        const match = sentenceSanitize.match(target)
+
+        if(match && sentenceSanitize) {
+          draft[position].index1 = i
+          draft[position].target = target
+          break
+        }
+
+        i++
+      }
+
+      if(!draft[position].index0) {
+        draft[position].index0 = i - 1
+      }
+    }
+  })
+  return newConfig
+}
+
+const findSections2 = (scrapConfig, content) => {
+  const newScrapConfig = scrapConfig//produce(scrapConfig, (draft) => draft)
+
+  // const scrapConfigKeys = Object.keys(newScrapConfig)
+
+  Object.keys(newScrapConfig).forEach((key) => {
+    const config = newScrapConfig[key]
+
+    const newConfig = initPositionConfig('start', config, content)
+    const newConfig2 = initPositionConfig('end', newConfig, content)
+    newScrapConfig[key] = newConfig2
+  })
+
+  // console.log("newScrapConfig", newScrapConfig)
+
+  return newScrapConfig
+}
+
 const extractData = (urlFile, fileName, scrapConfigInit) => {
   console.log("[AnthonyM] ~ file: extractor.js ~ line 126 ~ extractData ~ urlFile", urlFile)
   return new Promise(async (resolve) => {
@@ -137,7 +227,7 @@ const extractData = (urlFile, fileName, scrapConfigInit) => {
 
       // console.log("content", content.map((element) => element.str).join(''))
     
-      const newScrapConfig = findSections(scrapConfig, content)
+      const newScrapConfig = findSections2(scrapConfig, content)
     
       // console.log("newScrapConfig", JSON.stringify(newScrapConfig, null, 2))
 

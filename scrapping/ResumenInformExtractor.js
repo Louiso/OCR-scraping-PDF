@@ -29,7 +29,7 @@ const extractPersonasResponsable = async (urlbase) => {
       backgroundTable: {
         type: 'table',
         startLines: [
-          'Personas comprendidas en los hechos específicos irregulares y presuntas responsabilidades identificadas (Apéndice N ° 1):',
+          /Personas comprendidas en los hechos específicos irregulares y presuntas responsabilidades identificadas (Apéndice N\s?° 1):/,
           'Funcionarios comprendidos en los hechos y presuntas responsabilidades identificadas (Apéndice 1):',
         ],
         endLines: [
