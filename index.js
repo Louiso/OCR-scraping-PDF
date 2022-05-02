@@ -18,7 +18,7 @@ const main = async () => {
   // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPOL48000005&TIPOARCHIVO=RE'
   // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO131700001&TIPOARCHIVO=RE'
   // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO071500003&TIPOARCHIVO=RE&fbclid=IwAR3kKPP1pf0ATIs3mDz7lsxDpgwP4im0MGaY2NozuNsHNC1fckMzxAWaNJE'
-  const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPOL33000023&TIPOARCHIVO=RE'
+  const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO347200006&TIPOARCHIVO=RE'
 
   const urlParse = qs.parseUrl(url)
 

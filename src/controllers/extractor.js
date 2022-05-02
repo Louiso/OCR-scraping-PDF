@@ -2,10 +2,12 @@ const ScrapConfigFactory = require('../services/Scrapper');
 const Downloader = require('../services/Downloader');
 const fs = require('fs')
 const { produce } = require('immer')
+const DBLogger = require('../services/LoggerErrors/DbLogger')
 
 const PDFExtract = require('pdf.js-extract').PDFExtract;
 
 const pdfExtract = new PDFExtract();
+const logger = new DBLogger();
 const options = {}; /* see below */
 
 const buildScrapConfig = (scrapConfigInit) => {
@@ -212,6 +214,7 @@ const findSections2 = (scrapConfig, content) => {
   return newScrapConfig
 }
 
+
 const extractData = (urlFile, fileName, scrapConfigInit) => {
   return new Promise(async (resolve) => {
     const scrapConfig = buildScrapConfig(scrapConfigInit)
@@ -219,8 +222,10 @@ const extractData = (urlFile, fileName, scrapConfigInit) => {
     const outputPath = await Downloader.downloadFileByUrl(urlFile, fileName)
 
     pdfExtract.extract(outputPath, options, (err, data) => {
-      if (err) return console.log(err);
-    
+      if (err) {
+        logger.log(urlFile, err.message)
+        return console.log(err);
+      }
       const content = data.pages.flatMap(page => page.content)
 
       // console.log("content", content.map((element) => element.str).join(''))

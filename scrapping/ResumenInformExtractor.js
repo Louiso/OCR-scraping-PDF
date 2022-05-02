@@ -22,18 +22,13 @@ const extractPersonasResponsable = async (urlbase) => {
     const urlParse = qs.parseUrl(url)
 
     const fileName = urlParse.query.CRES_CODIGO ? `${urlParse.query.CRES_CODIGO}.pdf` : path.basename(url)
-
-    const endLine = `${fileName.toLowerCase().split('cp')[0]}-`
-
+  
     const data = await extractData(url, fileName , {
       backgroundTable: {
         type: 'table',
         startLines: [
-          /Personas comprendidas en los hechos específicos irregulares y presuntas responsabilidades identificadas (Apéndice N\s?° 1):/,
-          'Funcionarios comprendidos en los hechos y presuntas responsabilidades identificadas (Apéndice 1):',
-        ],
-        endLines: [
-          endLine
+          /Personas😀comprendidas😀en😀los😀hechos😀específicos😀irregulares😀y😀presuntas😀responsabilidades😀identificadas😀\(Apéndice😀N(😀)?°😀1\):/,
+          /Funcionarios😀comprendidos😀en😀los😀hechos😀y😀presuntas😀responsabilidades😀identificadas😀\(Apéndice😀1\):/,
         ],
         columnNames: [
           ColumnName.DocNumber,
@@ -48,7 +43,7 @@ const extractPersonasResponsable = async (urlbase) => {
     })
     return data[0]['backgroundTable']
   } catch (error) {
-    console.log(error)
+    console.log('extractPersonasResponsable: ',error.message)
     insertData('errores_extraccion', {url_inform: url, mensaje : error.message})
     return []
   }

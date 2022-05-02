@@ -204,9 +204,11 @@ const main = async() => {
             console.log('Total de Pages:' + TotalPages)
             await insetDataInforms(data)
             for( let i=2; i<= TotalPages; i++){
+                console.log('---- Page---- ' +i+ ' --------')
                 const data =  await getDataContraloria(pageSize, i)
                 await insetDataInforms(data)
             }
+            console.log('---- Finish----')
         } else {
             console.log('No hay data')
         }
