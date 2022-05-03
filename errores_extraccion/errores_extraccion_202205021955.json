@@ -1,0 +1,128 @@
+{
+"errores_extraccion": [
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2022CPOL35100009&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 714
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2018CPO025100001&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 717
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO025100085&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 723
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO038800041&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 724
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2022CPO019000002&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 725
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO025100080&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 727
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO025100079&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 729
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPOL43000225&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 715
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2019CPO025100136&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 716
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2018CPO530900001&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 718
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2018CPO375700019&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 719
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2018CPO375700010&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 720
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO025100101&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 721
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO025100105&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 722
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO019100060&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 726
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO025100081&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 728
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO025100084&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 730
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO060800034&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 732
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2022CPOL49500006&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 733
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2022CPO347100001&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 734
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO022900034&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 735
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO060800033&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 731
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2022CPO533300001&TIPOARCHIVO=RE",
+		"mensaje" : "Invalid PDF structure.",
+		"id" : 736
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2021CPO019200022&TIPOARCHIVO=RE",
+		"mensaje" : "Invalid PDF structure.",
+		"id" : 737
+	},
+	{
+		"url_inform" : "https:\/\/apps8.contraloria.gob.pe\/SPIC\/srvDownload\/ViewPDF?CRES_CODIGO=2022CPO553100001&TIPOARCHIVO=RE",
+		"mensaje" : "Cannot read properties of undefined (reading 'y')",
+		"id" : 738
+	}
+]}
