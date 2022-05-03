@@ -18,7 +18,10 @@ const main = async () => {
   // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPOL48000005&TIPOARCHIVO=RE'
   // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO131700001&TIPOARCHIVO=RE'
   // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO071500003&TIPOARCHIVO=RE&fbclid=IwAR3kKPP1pf0ATIs3mDz7lsxDpgwP4im0MGaY2NozuNsHNC1fckMzxAWaNJE'
-  const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO347200006&TIPOARCHIVO=RE'
+  // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO347200006&TIPOARCHIVO=RE'
+  // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPOL35100009&TIPOARCHIVO=RE'
+  // const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2018CPO025100001&TIPOARCHIVO=RE'
+  const url = 'https://apps8.contraloria.gob.pe/SPIC/srvDownload/ViewPDF?CRES_CODIGO=2022CPO553100001&TIPOARCHIVO=RE'
 
   const urlParse = qs.parseUrl(url)
 
@@ -28,7 +31,7 @@ const main = async () => {
     backgroundTable: {
       type: 'table',
       startLines: [
-        /Personas😀comprendidas😀en😀los😀hechos😀específicos😀irregulares😀y😀presuntas😀responsabilidades😀identificadas😀\(Apéndice😀N(😀)?°😀1\):/,
+        /Personas😀comprendidas😀en😀los😀hechos😀específicos😀irregulares😀y😀presuntas😀responsabilidades(😀)?identificadas😀\(Apéndice(😀)?N(😀)?°😀1\)/,
         /Funcionarios😀comprendidos😀en😀los😀hechos😀y😀presuntas😀responsabilidades😀identificadas😀\(Apéndice😀1\):/,
       ],
       columnNames: [
@@ -39,6 +42,9 @@ const main = async () => {
         ColumnName.Admin,
         ColumnName.AdmEnt,
         ColumnName.AdmPas
+      ],
+      columnNamesRequired: [
+        ColumnName.DocNumber,
       ]
     }
   })

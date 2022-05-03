@@ -31,7 +31,8 @@ const buildScrapConfig = (scrapConfigInit) => {
         columns: scrapConfigInit[key].columnNames.map((columnName) => ({
           columnName,
           xRange: []
-        }))
+        })),
+        columnNamesRequired: scrapConfigInit[key].columnNamesRequired,
       }
     }
   }, {})
@@ -131,6 +132,7 @@ const initPositionConfig = (position, config, content) => {
   })
 
   const contentText = content_replace.map((element) => element.str).join('')
+  // console.log("Luis Sullca ~ file: extractor.js ~ line 134 ~ initPositionConfig ~ contentText", contentText)
 
   config.end.targets = [
     new RegExp(Array.from(contentText.split(/😀/)).pop())
@@ -141,6 +143,8 @@ const initPositionConfig = (position, config, content) => {
   const newConfig = produce(config, (draft) => {
     for(let target of draft[position].targets) {
       const match = contentText.match(target)
+
+      // console.log("match", match)
       
       if(!match) continue
       
@@ -149,8 +153,11 @@ const initPositionConfig = (position, config, content) => {
       const startIndexSentence = contentText.split('').slice(0, match.index).join('').split(/😀/).length - 1
       const endIndexSentence = contentText.split('').slice(0, lastIndex).join('').split(/😀/).length - 1
       
-      const startIndex = startIndexSentence * 2 - target.toString().split(/😀/).length * 2
-      const endIndex = endIndexSentence * 2 + target.toString().split(/😀/).length * 2
+      const startIndex = startIndexSentence * 2 - target.toString().split(/😀/).length * 3
+      const endIndex = words.length//endIndexSentence * 2 + target.toString().split(/😀/).length * 32
+      // console.log("Luis Sullca ~ file: extractor.js ~ line 156 ~ newConfig ~ startIndex", startIndex)
+      // console.log("Luis Sullca ~ file: extractor.js ~ line 157 ~ newConfig ~ endIndex", endIndex)
+      // console.log("contentText", words.length)
 
       let i = startIndex
       let matchTarget
@@ -158,7 +165,7 @@ const initPositionConfig = (position, config, content) => {
         const pivote = draft[position].index0
         
         const str = words[i];
-        let sentence = str
+        let sentence = str ?? ''
 
         const firstWord = target.toString().replace(/\//g, '').split(/😀/)[0]
         
@@ -177,6 +184,8 @@ const initPositionConfig = (position, config, content) => {
 
         const sentenceSanitize = sentence
 
+        // console.log("sentenceSanitize", sentenceSanitize)
+        // console.log("target", target)
         const match = sentenceSanitize.match(target)
 
         if(match && sentenceSanitize) {
@@ -206,6 +215,9 @@ const findSections2 = (scrapConfig, content) => {
 
     const newConfig = initPositionConfig('start', config, content)
     const newConfig2 = initPositionConfig('end', newConfig, content)
+
+    // console.log("newConfig2", newConfig2)
+
     newScrapConfig[key] = newConfig2
   })
 
@@ -222,34 +234,34 @@ const extractData = (urlFile, fileName, scrapConfigInit) => {
     const outputPath = await Downloader.downloadFileByUrl(urlFile, fileName)
 
     pdfExtract.extract(outputPath, options, (err, data) => {
-      if (err) {
-        logger.log(urlFile, err.message)
-        return console.log(err);
-      }
-      const content = data.pages.flatMap(page => page.content)
-
-      // console.log("content", content.map((element) => element.str).join(''))
-    
-      const newScrapConfig = findSections2(scrapConfig, content)
-    
-      // console.log("newScrapConfig", JSON.stringify(newScrapConfig, null, 2))
-
-      const dataset = Object.keys(scrapConfig).map((key) => {
-        const config = newScrapConfig[key]
-    
-        const scrapper = ScrapConfigFactory.getInstance(config, content, {url_inform: urlFile})
-        return {
-          [key]: scrapper.run()
-        }
-      })
-
-      resolve(dataset)
       try {
-        fs.unlinkSync(outputPath)
-      //file removed
-      } catch(err) {
-        console.error(err)
-      }        
+        if (err) {
+          logger.log(urlFile, err.message)
+          return console.log(err);
+        }
+        const content = data.pages.flatMap(page => page.content)
+  
+        // console.log("content", content.map((element) => element.str).join(''))
+      
+        const newScrapConfig = findSections2(scrapConfig, content)
+      
+        // console.log("newScrapConfig", JSON.stringify(newScrapConfig, null, 2))
+  
+        const dataset = Object.keys(scrapConfig).map((key) => {
+          const config = newScrapConfig[key]
+      
+          const scrapper = ScrapConfigFactory.getInstance(config, content, {url_inform: urlFile})
+          return {
+            [key]: scrapper.run()
+          }
+        })
+  
+        resolve(dataset)
+
+        fs.unlinkSync(outputPath)  
+      } catch (error) {
+        console.error(error)
+      }     
     });
   })
 }

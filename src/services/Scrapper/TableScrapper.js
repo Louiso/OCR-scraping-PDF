@@ -77,6 +77,8 @@ class TableScrapper extends IScrapper {
 
     const ys = rest.map((element) => element.y).filter((y, index, self) => self.indexOf(y) === index)
 
+    const columnNamesRequired = newScrapConfig.columnNamesRequired
+
     const nodes = ys.map((y) => {
       const cells = rest.filter((element) => element.y === y)
 
@@ -94,7 +96,9 @@ class TableScrapper extends IScrapper {
       }, {})
     })
 
-    return nodes.filter((node) => Object.values(node).some((value) => value))
+    return nodes
+      .filter((node) => Object.values(node).some((value) => value))
+      .filter((node) => columnNamesRequired.every((key) => node[key]))
   }
 
 
